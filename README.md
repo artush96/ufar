@@ -1,1 +1,1 @@
-# ufar
+# UFAR project
