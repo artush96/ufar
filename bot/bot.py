@@ -2,10 +2,12 @@ import logging
 from telegram.ext import ApplicationBuilder, CommandHandler
 
 from config import TOKEN
+from settings import ROOT_DIR
 from commands import command_start, command_listam_status
 
 
 logging.basicConfig(
+    filename=f'{ROOT_DIR}/logs/bot.log',
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
