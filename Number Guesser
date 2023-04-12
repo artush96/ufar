@@ -1,0 +1,25 @@
+import random
+
+class NumberGuesser:
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+        self.secret_number = random.randint(start, end)
+
+    def guess(self, num):
+        if num == self.secret_number:
+            print("Congratulations! You guessed the number.")
+            return True
+        elif num < self.secret_number:
+            print("The secret number is higher.")
+            return False
+        else:
+            print("The secret number is lower.")
+            return False
+
+if __name__ == "__main__":
+    guesser = NumberGuesser(1, 100) # set the range of possible numbers
+    while True:
+        guess = int(input("Guess the number between {} and {}: ".format(guesser.start, guesser.end)))
+        if guesser.guess(guess):
+            break
