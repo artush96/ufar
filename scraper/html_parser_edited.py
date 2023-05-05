@@ -94,6 +94,3 @@ class Scraper:
         id1 = self.find_id(key)
         price = f"{self.domain}en/category/?n={id1}&price1={min_price}&price2={max_price}&crc=-1"
         return price
-
-
-Scraper().get_response()
