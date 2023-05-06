@@ -1,8 +1,7 @@
 import sys
 import requests
 from bs4 import BeautifulSoup
-
-
+import commands
 class Scraper:
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
@@ -35,13 +34,9 @@ class Scraper:
     def __init__(self):
         self.domain = "https://www.list.am/"
 
-        for cats in self.categories:
-            print('○' + cats)
-        key = input("Choose a category from above: ")
-        if input("Do you want to specify the location? ").lower() == "yes":
-            for locs in self.locations:
-                print('➡' + locs)
-            location = input("Choose the location from above: ").lower().capitalize()
+        key = commands.CATEGORY
+        if True:
+            location = commands.LOCATION
             if input("Do you want to specify the price range? ").lower() == "yes":
                 min_price = str(input("Enter the starting price: "))
                 max_price = str(input("Enter the final price: "))
@@ -50,9 +45,9 @@ class Scraper:
                 url = self.search_category(key) + self.find_location(location)
         else:
             url = self.search_category(key)
-            if input("Do you want to specify the price range? ").lower() == "yes":
-                min_price = input("Enter the starting price: ")
-                max_price = input("Enter the final price: ")
+            if True:
+                min_price = commands.PRICE_MIN
+                max_price = commands.PRICE_MAX
                 url = url + f"?n=0&price1={min_price}&price2={max_price}&crc=-1"
         response = requests.get(url, headers=self.headers)
         if response.status_code == 200:
@@ -61,15 +56,16 @@ class Scraper:
             c_div = soup.find('div', {'id': 'contentr'})
             div = c_div.find('div', {'class': 'dl'})
             if div:
-                links = div.find_all('a')
-                for link in links:
-                    print('•' + link.text)
+                for i, link in enumerate(links, 1):
+                    links_dict[i] = link.text
             else:
                 print(f"Error: 'div' element with class name {class_name} not found")
                 sys.exit()
         else:
             print(f"Error: Could not retrieve webpage, status code {response.status_code}")
             sys.exit()
+
+    links_dict = {}
 
     def find_id(self, key):
         if self.categories.get(key):
