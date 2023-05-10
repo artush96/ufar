@@ -44,6 +44,7 @@ class Scraper:
             div = c_div.find('div', {'class': 'dl'})
             if div:
                 links = div.find_all('a')
+              for i in range(0,5):
                 for link in links:
                     self.data.append(link.text)
         return self.data
