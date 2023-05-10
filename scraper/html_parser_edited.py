@@ -78,6 +78,6 @@ class Scraper:
         return max_price_path
 
     def get_url(self, query):
-        url = f'{self.domain}/en/{self.get_category(query)}/{self.get_location(query)}' \
+        url = f'{self.domain}/category/{self.get_category(query)}/{self.get_location(query)}' \
               f'{self.get_min_price(query)}{self.get_max_price(query)}&crc=-1'
         return url
