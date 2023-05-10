@@ -16,7 +16,7 @@ class Messages:
         await update.message.reply_text(
             "Hi! I am a bot! Please choose a category from the following list.\n"
             "Real Estate\n"
-            "Vehicles\n"
+            "Transport\n"
             "Electronics\n"
             "Appliances\n"
             "Home and Garden\n"
@@ -93,7 +93,7 @@ class Messages:
             "Enter the final price."
         )
         logger.info('running price_min')
-        await self.print_msg(update, 'price_min')
+        await self.print_msg(update, 'min_price')
 
         return PRICE_MAX
 
@@ -102,8 +102,8 @@ class Messages:
             "Use /send to send the keywords to the scraper."
         )
         logger.info('running skip_price')
-        await self.print_msg(update, 'price_min', empty_msg=True)
-        await self.print_msg(update, 'price_max', empty_msg=True)
+        await self.print_msg(update, 'min_price', empty_msg=True)
+        await self.print_msg(update, 'max_price', empty_msg=True)
 
         return ConversationHandler.END
 
@@ -113,8 +113,8 @@ class Messages:
         await update.message.reply_text(
             "Use /send to send the keywords to the scraper."
         )
-        logger.info('running price_max')
-        await self.print_msg(update, 'price_max')
+        logger.info('running max_price')
+        await self.print_msg(update, 'max_price')
 
         return ConversationHandler.END
 
@@ -128,9 +128,11 @@ class Messages:
     async def send_keywords(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         message = Scraper().query(self.commands_list)
-        await update.message.reply_text(
-            message
-        )
+        print(message)
+        for i in range(5, 8):
+            await update.message.reply_text(
+                message[i]
+            )
 
 
     # async def command_help(update: Update, context: ContextTypes.DEFAULT_TYPE):

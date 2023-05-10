@@ -8,7 +8,7 @@ class Scraper:
     }
     categories = {
         "Real Estate": 54,
-        "Vehicles": 16,
+        "Transport": 16,
         "Electronics": 4,
         "Appliances": 26,
         "Home and Garden": 133,
@@ -22,13 +22,13 @@ class Scraper:
         "Jobs": 29
     }
     locations = {
-        "Yerevan": "?n=1&price1=&price2=&crc=-1", "Armavir": "?n=23&price1=&price2=&crc=-1",
-        "Ararat": "?n=19&price1=&price2=&crc=-1", "Kotayk": "?n=40&price1=&price2=&crc=-1",
-        "Shirak": "?n=49&price1=&price2=&crc=-1", "Lorri": "?n=44&price1=&price2=&crc=-1",
-        "Gegharkunik": "?n=35&price1=&price2=&crc=-1", "Syunik": "?n=52&price1=&price2=&crc=-1",
-        "Aragatsotn": "?n=14&price1=&price2=&crc=-1", "Tavush": "?n=57&price1=&price2=&crc=-1",
-        "Vayots Dzor": "?n=61&price1=&price2=&crc=-1", "Artsakh": "?n=27&price1=&price2=&crc=-1",
-        "International": "?n=116&price1=&price2=&crc=-1"
+        "Yerevan": "1", "Armavir": "23",
+        "Ararat": "19", "Kotayk": "40",
+        "Shirak": "49", "Lorri": "44",
+        "Gegharkunik": "35", "Syunik": "52",
+        "Aragatsotn": "14", "Tavush": "57",
+        "Vayots Dzor": "61", "Artsakh": "27",
+        "International": "116"
     }
 
     def __init__(self):
@@ -54,17 +54,18 @@ class Scraper:
 
     def query(self, query):
         url = self.get_url(query)
+        print(url)
         data = self.parse(url)
         return data
 
     @staticmethod
     def get_location(query):
-        location_path = f'?n={query.get("location")}'
+        location_path = f'?n={Scraper().locations.get(query.get("location"))}'
         return location_path
 
     @staticmethod
     def get_category(query):
-        cat_path = f'category/{query.get("category")}'
+        cat_path = f'category/{Scraper().categories.get(query.get("category"))}'
         return cat_path
 
     @staticmethod
@@ -78,6 +79,6 @@ class Scraper:
         return max_price_path
 
     def get_url(self, query):
-        url = f'{self.domain}/en/{self.get_category(query)}/{self.get_location(query)}' \
+        url = f'{self.domain}{self.get_category(query)}{self.get_location(query)}' \
               f'{self.get_min_price(query)}{self.get_max_price(query)}&crc=-1'
         return url
