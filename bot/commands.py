@@ -78,7 +78,7 @@ class Messages:
         return PRICE_MIN
 
     async def skip_location(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        empty_msg
+
         await update.message.reply_text(
             "Enter the starting price, or send /skip."
         )
@@ -102,6 +102,8 @@ class Messages:
             "Use /send to send the keywords to the scraper."
         )
         logger.info('running skip_price')
+        await self.print_msg(update, 'price_min', empty_msg=True)
+        await self.print_msg(update, 'price_max', empty_msg=True)
 
         return ConversationHandler.END
 
