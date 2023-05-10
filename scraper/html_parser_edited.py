@@ -1,7 +1,8 @@
 import sys
 import requests
 from bs4 import BeautifulSoup
-import commands
+
+
 class Scraper:
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
@@ -90,3 +91,34 @@ class Scraper:
         id1 = self.find_id(key)
         price = f"{self.domain}en/category/?n={id1}&price1={min_price}&price2={max_price}&crc=-1"
         return price
+
+    def query(self, query):
+
+        url = self.get_url(query)
+
+        req = self.request(url)
+        data = self.parse(req)
+
+        return data
+
+    @staticmethod
+    def get_location(query):
+        location_path = f'?n={query.get("location")}'
+        return location_path
+
+    def get_category(self, query):
+        cat_path = f'category/{query.get("category")}'
+        return cat_path
+
+    def get_min_price(self, query):
+        min_price_path = f'&price1={query.get("min_price")}'
+        return min_price_path
+
+    def get_max_price(self, query):
+        max_price_path = f'&price2={query.get("max_price")}'
+        return max_price_path
+
+    def get_url(self, query):
+        url = f'{self.domain}/en/{self.get_category(query)}/{self.get_location(query)}' \
+              f'{self.get_min_price(query)}{self.get_max_price(query)}&crc=-1'
+        return url

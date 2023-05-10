@@ -34,8 +34,10 @@ class Messages:
 
         return CATEGORY
 
-    async def print_msg(self, update, name=None):
+    async def print_msg(self, update, name=None, empty_msg=False):
         msg = update.message.text
+        if empty_msg:
+            msg = ''
         if name:
             self.commands_list[name] = msg
             print(self.commands_list)
@@ -76,11 +78,12 @@ class Messages:
         return PRICE_MIN
 
     async def skip_location(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        empty_msg
         await update.message.reply_text(
             "Enter the starting price, or send /skip."
         )
         logger.info('running skip_location')
-
+        await self.print_msg(update, 'location', empty_msg=True)
         return PRICE_MIN
 
     async def price_min(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -122,7 +125,7 @@ class Messages:
 
     async def send_keywords(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-        message = Scraper().send_to_scrapper(data=self.commands_list)
+        message = Scraper().query(self.commands_list)
         await update.message.reply_text(
             message
         )
