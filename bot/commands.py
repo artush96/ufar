@@ -14,7 +14,7 @@ class Messages:
 
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
-            "Hi! I am a bot! Please choose a category from the following list.\n"
+            "Hi! I am a scraper bot! Please choose a listing category from the following list.\n"
             "Real Estate\n"
             "Transport\n"
             "Electronics\n"
@@ -43,8 +43,7 @@ class Messages:
             print(self.commands_list)
 
     async def category(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-        # global user_cat
-        # user_cat = update.message.text
+
         await update.message.reply_text(
             "Choose the location from the list or send /skip if you want to skip.\n"
             "Yerevan\n"
@@ -67,8 +66,7 @@ class Messages:
         return LOCATION
 
     async def location(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        # global user_loc
-        # user_loc = update.message.text
+
         await update.message.reply_text(
             "Enter the starting price or send /skip if you want to skip."
         )
@@ -87,8 +85,7 @@ class Messages:
         return PRICE_MIN
 
     async def price_min(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        # global user_price_min
-        # user_price_min = update.message.text
+
         await update.message.reply_text(
             "Enter the final price."
         )
@@ -108,8 +105,7 @@ class Messages:
         return ConversationHandler.END
 
     async def price_max(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        # global user_price_max
-        # user_price_max = update.message.text
+
         await update.message.reply_text(
             "Use /send to send the keywords to the scraper."
         )
@@ -133,17 +129,3 @@ class Messages:
             await update.message.reply_text(
                 message[i]
             )
-
-
-    # async def command_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    #     await context.bot.send_message(
-    #         chat_id=update.effective_chat.id,
-    #         text="Available Commands :- \n/status_checker - To get statements from list.am")
-    #     logger.info('running help')
-    #
-    #
-    # async def command_listam_status(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    #     await context.bot.send_message(
-    #         chat_id=update.effective_chat.id,
-    #         text="List.am statements are ready))")
-    #     logger.info('running command_listam_status')
